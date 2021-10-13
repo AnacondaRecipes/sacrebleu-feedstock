@@ -22,7 +22,7 @@ requirements:
   host:
     - python
     - pip
-    - patch
+    - patch  # [not win]
   run:
     - python
     - typing
