@@ -22,6 +22,8 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
     - patch  # [not win]
   run:
     - python
