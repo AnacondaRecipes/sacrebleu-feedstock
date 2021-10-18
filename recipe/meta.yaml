@@ -17,6 +17,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps
   entry_points:
     - sacrebleu = sacrebleu.sacrebleu:main
+  skip: true  # [py<36]
 
 requirements:
   host:
@@ -24,7 +25,8 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - patch  # [not win]
+    - patch     # [not win]
+    - m2-patch  # [win]
   run:
     - python
     - typing
@@ -39,6 +41,7 @@ test:
   imports:
     - sacrebleu
   requires:
+    - python <3.10  # due to bug in CF which will choose 3.10 for testing
     - pip
   commands:
     - pip check
