@@ -1,23 +1,21 @@
 {% set name = "sacrebleu" %}
-{% set version = "2.0.0" %}
+{% set version = "2.4.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 51fb69b6683f1b9999cd180143bb6b21d7841744537c9aab235cfe676550f0cf
-  patches:
-    - no_changelog.patch
+  url: https://github.com/mjpost/sacrebleu/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: c31c60b993c958c75a3bb51f54538c407974f18d333941c6646993c95766cb1c
 
 build:
-  noarch: python
-  number: 1
-  script: {{ PYTHON }} -m pip install . -vv --no-deps
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - sacrebleu = sacrebleu.sacrebleu:main
-  skip: true  # [py<36]
+  # Skip 3.12 for missing portalocker
+  skip: true  # [py<38 or py>311]
 
 requirements:
   host:
@@ -25,8 +23,6 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - patch     # [not win]
-    - m2-patch  # [win]
   run:
     - python
     - typing
@@ -35,16 +31,19 @@ requirements:
     - tabulate >=0.8.9
     - numpy >=1.17
     - colorama
-    # extras_require={'ja': ['mecab-python3==1.0.3', 'ipadic>=1.0,<2.0']},
+    - lxml
 
 test:
+  source_files:
+    - test
   imports:
     - sacrebleu
   requires:
-    - python <3.10  # due to bug in CF which will choose 3.10 for testing
     - pip
+    - pytest
   commands:
     - pip check
+    - pytest test
 
 about:
   home: https://github.com/mjpost/sacrebleu
