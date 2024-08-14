@@ -48,6 +48,7 @@ test:
 about:
   home: https://github.com/mjpost/sacrebleu
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE.txt
   summary: Reference BLEU implementation that auto-downloads test sets and reports a version string to facilitate cross-lab comparisons
   doc_url: https://github.com/mjpost/sacrebleu/blob/master/README.md
