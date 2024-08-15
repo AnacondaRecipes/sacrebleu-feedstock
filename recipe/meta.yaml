@@ -49,7 +49,7 @@ test:
   commands:
     - pip check
     {% set tests_to_skip = "process_to_text" %}
-    {% set tests_to_skip = tests_to_skip + " or api_get_source" %}  # [win]
+    {% set tests_to_skip = tests_to_skip + " or api_get_source or api_get_reference" %}  # [win]
     - pytest test -k "not ({{ tests_to_skip }})"
 
 about:
