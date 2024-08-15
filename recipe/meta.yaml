@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/mjpost/sacrebleu/archive/refs/tags/v{{ version }}.tar.gz
   sha256: c31c60b993c958c75a3bb51f54538c407974f18d333941c6646993c95766cb1c
+  patches:
+    - no_changelog.patch
 
 build:
   number: 0
@@ -16,8 +18,6 @@ build:
     - sacrebleu = sacrebleu.sacrebleu:main
   # Skip 3.12 for missing portalocker
   skip: true  # [py<38 or py>311]
-  patches:
-    - no_changelog.patch
 
 requirements:
   build:
