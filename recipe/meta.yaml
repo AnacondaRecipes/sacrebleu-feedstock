@@ -16,8 +16,13 @@ build:
     - sacrebleu = sacrebleu.sacrebleu:main
   # Skip 3.12 for missing portalocker
   skip: true  # [py<38 or py>311]
+  patches:
+    - no_changelog.patch
 
 requirements:
+  build:
+    - patch  # [unix]
+    - m2-patch  # [win]
   host:
     - python
     - pip
