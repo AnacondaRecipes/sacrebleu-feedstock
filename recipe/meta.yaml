@@ -43,6 +43,9 @@ test:
     - test
   imports:
     - sacrebleu
+    - sacrebleu.dataset
+    - sacrebleu.metrics
+    - sacrebleu.tokenizers
   requires:
     - pip
     - pytest
