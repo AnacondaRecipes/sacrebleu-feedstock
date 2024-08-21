@@ -1,15 +1,13 @@
 {% set name = "sacrebleu" %}
-{% set version = "2.4.2" %}
+{% set version = "2.4.3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/mjpost/sacrebleu/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: c31c60b993c958c75a3bb51f54538c407974f18d333941c6646993c95766cb1c
-  patches:
-    - no_changelog.patch
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e734b1e0baeaea6ade0fefc9d23bac3df50bf15775d8b78edc108db63654192a
 
 build:
   number: 0
@@ -20,9 +18,6 @@ build:
   skip: true  # [py<38 or py>311]
 
 requirements:
-  build:
-    - patch  # [unix]
-    - m2-patch  # [win]
   host:
     - python
     - pip
