@@ -10,7 +10,7 @@ source:
   sha256: e734b1e0baeaea6ade0fefc9d23bac3df50bf15775d8b78edc108db63654192a
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - sacrebleu = sacrebleu.sacrebleu:main
@@ -22,6 +22,7 @@ requirements:
     - python
     - pip
     - setuptools
+    - setuptools_scm
     - wheel
   run:
     - python
