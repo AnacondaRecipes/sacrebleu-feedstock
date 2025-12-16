@@ -1,16 +1,18 @@
 {% set name = "sacrebleu" %}
-{% set version = "2.4.3" %}
+{% set version = "2.5.1" %}
+{% set tests_to_skip = "process_to_text" %}
+{% set tests_to_skip = tests_to_skip + " or api_get_source or api_get_reference" %}  # [win]
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e734b1e0baeaea6ade0fefc9d23bac3df50bf15775d8b78edc108db63654192a
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 1a088cc1c74ffaff0759c3191a85db09eecfa7a52e09be244e319d8d64e2fb11
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - sacrebleu = sacrebleu.sacrebleu:main
@@ -21,9 +23,9 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools >=64
     - setuptools_scm
-    - wheel
+    - setuptools-scm >=8
   run:
     - python
     - typing
@@ -52,8 +54,6 @@ test:
     - pytest
   commands:
     - pip check
-    {% set tests_to_skip = "process_to_text" %}
-    {% set tests_to_skip = tests_to_skip + " or api_get_source or api_get_reference" %}  # [win]
     - pytest test -k "not ({{ tests_to_skip }})"
 
 about:
@@ -64,13 +64,14 @@ about:
   summary: Reference BLEU implementation that auto-downloads test sets and reports a version string to facilitate cross-lab comparisons
   doc_url: https://github.com/mjpost/sacrebleu/blob/master/README.md
   dev_url: https://github.com/mjpost/sacrebleu
-
   description: |
     SacreBLEU (Post, 2018) provides hassle-free computation of shareable,
     comparable, and reproducible BLEU scores. Inspired by Rico Sennrich's
     multi-bleu-detok.perl, it produces the official WMT scores but works with
     plain text. It also knows all the standard test sets and handles
     downloading, processing, and tokenization for you.
+
+
 
 extra:
   recipe-maintainers:
