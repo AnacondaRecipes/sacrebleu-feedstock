@@ -1,7 +1,5 @@
 {% set name = "sacrebleu" %}
 {% set version = "2.5.1" %}
-{% set tests_to_skip = "process_to_text" %}
-{% set tests_to_skip = tests_to_skip + " or api_get_source or api_get_reference" %}  # [win]
 
 package:
   name: {{ name|lower }}
@@ -13,22 +11,19 @@ source:
 
 build:
   number: 0
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - sacrebleu = sacrebleu.sacrebleu:main
-  # Skip 3.12 for missing portalocker
-  skip: true  # [py<38 or py>311]
 
 requirements:
   host:
     - python
     - pip
     - setuptools >=64
-    - setuptools_scm
-    - setuptools-scm >=8
+    - setuptools_scm >=8
   run:
     - python
-    - typing
     - portalocker
     - regex
     - tabulate >=0.8.9
@@ -36,8 +31,10 @@ requirements:
     - colorama
     - lxml
   run_constrained:
+    # ja
     - ipadic >=1.0,<2.0
     - mecab-python3 >=1.0.9,<2.0.0
+    # ko
     - mecab-ko >=1.0.0,<=1.0.1
     - mecab-ko-dic >=1.0,<2.0
 
@@ -54,14 +51,14 @@ test:
     - pytest
   commands:
     - pip check
-    - pytest test -k "not ({{ tests_to_skip }})"
+    - pytest -v test
 
 about:
   home: https://github.com/mjpost/sacrebleu
   license: Apache-2.0
   license_family: Apache
   license_file: LICENSE.txt
-  summary: Reference BLEU implementation that auto-downloads test sets and reports a version string to facilitate cross-lab comparisons
+  summary: Reference BLEU implementation that auto-downloads test sets and reports a version string to facilitate cross-lab comparisons.
   doc_url: https://github.com/mjpost/sacrebleu/blob/master/README.md
   dev_url: https://github.com/mjpost/sacrebleu
   description: |
